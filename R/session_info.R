@@ -1,3 +1,7 @@
+#' Get list of session info with platform info and package list
+#'
+#' @export
+#'
 get_session_info <- function() {
   session_info <- devtools::session_info()
 

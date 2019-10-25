@@ -30,47 +30,10 @@ capture_exception.sentry <- function(
   object, exception, extra = NULL, level = "error", tags = NULL, include_session_info = TRUE
 ) {
 
-  required_attributes <- list(
-    timestamp = strftime(Sys.time() , "%Y-%m-%dT%H:%M:%S")
+  response <- capture_text(
+    object = object, text = exception$message, extra = extra, level = level, tags = tags,
+    include_session_info = include_session_info
   )
-
-  if (include_session_info) {
-    required_attributes <- c(required_attributes, get_session_info())
-  }
-
-  user <- c(
-    object$user,
-    list(sysinfo = as.list(Sys.info()))
-  )
-
-  tags <- c(
-    object$tags,
-    tags
-  )
-
-  event_id <- generate_event_id()
-
-  exception_context <- list(
-    event_id = event_id,
-    user = user,
-    message = exception$message,
-    extra = c(required_attributes, extra),
-    tags = tags,
-    level = level
-  )
-
-  headers <- paste("Sentry", paste(sapply(names(object$auth), function(key) {
-    paste0(key, "=", object$auth[[key]])
-  }, USE.NAMES = FALSE), collapse = ", "))
-  response <- httr::POST(url = object$url,
-                         httr::add_headers('X-Sentry-Auth' = headers),
-                         encode = "json",
-                         body = exception_context)
 
   return(response)
-}
-
-# ---------------------------------------------------------------------
-generate_event_id <- function() {
-  paste(sample(c(0:9, letters[1:6]), 32, replace = TRUE), collapse = "")
 }
