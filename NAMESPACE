@@ -2,8 +2,9 @@
 
 S3method(capture_exception,sentry)
 S3method(capture_text,sentry)
+export(capture_error)
 export(capture_exception)
 export(capture_text)
+export(capture_warning)
 export(get_session_info)
 export(sentry_client)
-export(stop)
