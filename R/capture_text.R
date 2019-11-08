@@ -8,9 +8,10 @@
 #' @param level set level, warning or error for example
 #' @param tags named list of tags
 #' @param include_session_info whether to send platform and package list, takes up to 1s or more
+#' @param exception list containing `type` and `value` describing the exception
 #'
 #' @export
-capture_text <- function(object, text, extra, level, tags, include_session_info) {
+capture_text <- function(object, text, extra, level, tags, include_session_info, exception) {
   UseMethod("capture_text", object)
 }
 
@@ -24,11 +25,20 @@ capture_text <- function(object, text, extra, level, tags, include_session_info)
 #' @param level set level, warning or error for example
 #' @param tags named list of tags
 #' @param include_session_info whether to send platform and package list, takes up to 1s or more
+#' @param exception list containing `type` and `value` describing the exception
 #'
 #' @export
 capture_text.sentry <- function(
-  object, text, extra = NULL, level = "error", tags = NULL, include_session_info = TRUE
+  object, text = NULL, extra = NULL, level = "error", tags = NULL, include_session_info = TRUE, exception = NULL
 ) {
+
+  if (is.null(text)) {
+    if (!is.null(exception)) {
+      text <- exception$value
+    } else {
+      text <- "unspecified"
+    }
+  }
 
   required_attributes <- list(
     timestamp = strftime(Sys.time() , "%Y-%m-%dT%H:%M:%S")
@@ -44,7 +54,7 @@ capture_text.sentry <- function(
   )
 
   tags <- c(
-    object$tags,
+    get("tags", envir = .sentry),
     tags
   )
 
@@ -58,6 +68,10 @@ capture_text.sentry <- function(
     tags = tags,
     level = level
   )
+
+  if (!is.null(exception)) {
+    exception_context$exception <- exception
+  }
 
   headers <- paste("Sentry", paste(sapply(names(object$auth), function(key) {
     paste0(key, "=", object$auth[[key]])

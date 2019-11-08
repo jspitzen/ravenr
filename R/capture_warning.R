@@ -6,6 +6,8 @@
 #' options(warning.expression = quote({ravenr::capture_warning(restart)}))
 #' log(-1)
 capture_warning <- function(res) {
-  # TODO get warning message from res object (hint: look at rlang::trace_back() functionality)
-  capture_text(sentry, "unspecified warning", level = "warning", include_session_info = FALSE)
+  exception <- get_warning_exception()
+  sentry <- get("sentry_client", envir = .sentry)
+  capture_text(sentry, level = "warning", include_session_info = FALSE, exception = exception)
+  message(exception$value)
 }

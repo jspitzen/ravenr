@@ -4,8 +4,9 @@
 \alias{capture_text.sentry}
 \title{Capture Text}
 \usage{
-\method{capture_text}{sentry}(object, text, extra = NULL,
-  level = "error", tags = NULL, include_session_info = TRUE)
+\method{capture_text}{sentry}(object, text = NULL, extra = NULL,
+  level = "error", tags = NULL, include_session_info = TRUE,
+  exception = NULL)
 }
 \arguments{
 \item{object}{A Sentry client}
@@ -19,6 +20,8 @@
 \item{tags}{named list of tags}
 
 \item{include_session_info}{whether to send platform and package list, takes up to 1s or more}
+
+\item{exception}{list containing `type` and `value` describing the exception}
 }
 \description{
 \code{capture_text.sentry} Captures text and sends it to Sentry

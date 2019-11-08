@@ -7,5 +7,10 @@
 #' log('a')
 capture_error <- function() {
   error_message <- geterrmessage()
-  capture_text(sentry, error_message, level = "error", include_session_info = FALSE)
+  exception <- list(
+    "type" = sub("\\\n", "", sub("^Error in .* : ", "", error_message)),
+    "value" = gsub("\\\"", "'", sub("\\\n", "", error_message))
+  )
+  sentry <- get("sentry_client", envir = .sentry)
+  capture_text(sentry, error_message, level = "error", include_session_info = FALSE, exception = exception)
 }
