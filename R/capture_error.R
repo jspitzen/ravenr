@@ -11,6 +11,5 @@ capture_error <- function() {
     "type" = sub("\\\n", "", sub("^Error in .* : ", "", error_message)),
     "value" = gsub("\\\"", "'", sub("\\\n", "", error_message))
   )
-  sentry <- get("sentry_client", envir = .sentry)
-  capture_text(sentry, error_message, level = "error", include_session_info = FALSE, exception = exception)
+  capture_text(error_message, level = "error", include_session_info = FALSE, exception = exception)
 }

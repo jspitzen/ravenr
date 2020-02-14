@@ -11,27 +11,8 @@
 #' @param exception list containing `type` and `value` describing the exception
 #'
 #' @export
-capture_text <- function(object, text, extra, level, tags, include_session_info, exception) {
-  UseMethod("capture_text", object)
-}
-
-#' Capture Text
-#'
-#' \code{capture_text.sentry} Captures text and sends it to Sentry
-#'
-#' @param object A Sentry client
-#' @param text text to send
-#' @param extra set extra context
-#' @param level set level, warning or error for example
-#' @param tags named list of tags
-#' @param include_session_info whether to send platform and package list, takes up to 1s or more
-#' @param exception list containing `type` and `value` describing the exception
-#'
-#' @export
-capture_text.sentry <- function(
-  object, text = NULL, extra = NULL, level = "error", tags = NULL, include_session_info = TRUE, exception = NULL
-) {
-
+capture_text <- function(text = NULL, extra = NULL, level = "error", tags = NULL, include_session_info = TRUE, exception = NULL) {
+  object <-  get("sentry_client", envir = .sentry)
   if (is.null(text)) {
     if (!is.null(exception)) {
       text <- exception$value

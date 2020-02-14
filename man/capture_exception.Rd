@@ -4,7 +4,7 @@
 \alias{capture_exception}
 \title{Capture Exception}
 \usage{
-capture_exception(object, exception, extra, level, tags,
+capture_exception(exception, extra, level, tags,
   include_session_info)
 }
 \arguments{

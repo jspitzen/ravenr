@@ -10,8 +10,11 @@
 #' @param include_session_info whether to send platform and package list, takes up to 1s or more
 #'
 #' @export
-capture_exception <- function(object, exception, extra, level, tags, include_session_info) {
-  UseMethod("capture_exception", object)
+capture_exception <- function(exception, extra, level, tags, include_session_info) {
+  response <- capture_text(
+    text = exception$message, extra = extra, level = level, tags = tags,
+    include_session_info = include_session_info
+  )
 }
 
 #' Capture Exception
@@ -26,12 +29,11 @@ capture_exception <- function(object, exception, extra, level, tags, include_ses
 #' @param include_session_info whether to send platform and package list, takes up to 1s or more
 #'
 #' @export
-capture_exception.sentry <- function(
-  object, exception, extra = NULL, level = "error", tags = NULL, include_session_info = TRUE
+capture_exception.sentry <- function(exception, extra = NULL, level = "error", tags = NULL, include_session_info = TRUE
 ) {
 
   response <- capture_text(
-    object = object, text = exception$message, extra = extra, level = level, tags = tags,
+    text = exception$message, extra = extra, level = level, tags = tags,
     include_session_info = include_session_info
   )
 

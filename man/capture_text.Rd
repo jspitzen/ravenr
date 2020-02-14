@@ -4,7 +4,7 @@
 \alias{capture_text}
 \title{Capture Text}
 \usage{
-capture_text(object, text, extra, level, tags, include_session_info,
+capture_text(text, extra, level, tags, include_session_info,
   exception)
 }
 \arguments{
