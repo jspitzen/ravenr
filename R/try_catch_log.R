@@ -4,14 +4,16 @@
 #' \code{try_catch_log} Catches errors and warnings and sends them to sentry
 #'
 #' @param expr function or expression that might generate the error
-#' @param silent.warnings Boolean indicating wheter to print the warnings
-#' @param silent.messages Boolean indicating wheter to print the messages
+#' @param silent.warnings Boolean indicating whether to print the warnings
+#' @param silent.messages Boolean indicating whether to print the messages
 #' @param ... Extra input that has to be passed to other functions
 #' @param extra Set extra context
 #' @param messages.to.sentry Boolean indicating whether to send messages to Sentry
 #' @param warnings.to.sentry Boolean indicating whether to send warnings to Sentry
 #' @param errors.to.sentry Boolean indicating whether to send errors to Sentry
 #' @param tags Named list of tags
+#'
+#' @export
 try_catch_log <- function(expr,
                           ...,
                           silent.warnings = TRUE,

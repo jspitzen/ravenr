@@ -4,12 +4,16 @@
 \alias{capture_text}
 \title{Capture Text}
 \usage{
-capture_text(text, extra, level, tags, include_session_info,
-  exception)
+capture_text(
+  text = NULL,
+  extra = NULL,
+  level = "error",
+  tags = NULL,
+  include_session_info = TRUE,
+  exception = NULL
+)
 }
 \arguments{
-\item{object}{A Sentry client}
-
 \item{text}{text to send}
 
 \item{extra}{set extra context}
@@ -21,6 +25,8 @@ capture_text(text, extra, level, tags, include_session_info,
 \item{include_session_info}{whether to send platform and package list, takes up to 1s or more}
 
 \item{exception}{list containing `type` and `value` describing the exception}
+
+\item{object}{A Sentry client}
 }
 \description{
 \code{capture_text} Captures text and sends it to Sentry

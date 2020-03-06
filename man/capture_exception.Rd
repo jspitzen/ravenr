@@ -4,12 +4,9 @@
 \alias{capture_exception}
 \title{Capture Exception}
 \usage{
-capture_exception(exception, extra, level, tags,
-  include_session_info)
+capture_exception(exception, extra, level, tags, include_session_info)
 }
 \arguments{
-\item{object}{A Sentry client}
-
 \item{exception}{exception to catch}
 
 \item{extra}{set extra context}
@@ -19,6 +16,8 @@ capture_exception(exception, extra, level, tags,
 \item{tags}{named list of tags}
 
 \item{include_session_info}{whether to send platform and package list, takes up to 1s or more}
+
+\item{object}{A Sentry client}
 }
 \description{
 \code{capture_exception} Captures an exception and sends it to Sentry

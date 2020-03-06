@@ -9,6 +9,9 @@ get_traceback(compact = TRUE)
 \arguments{
 \item{compact}{}
 }
+\value{
+
+}
 \description{
 Get traceback as a list of strings
 }
