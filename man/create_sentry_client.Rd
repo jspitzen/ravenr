@@ -4,8 +4,13 @@
 \alias{create_sentry_client}
 \title{Create Sentry Client}
 \usage{
-create_sentry_client(dsn, user = NULL, version = NULL,
-  log_errors = TRUE, log_warnings = TRUE)
+create_sentry_client(
+  dsn,
+  user = NULL,
+  version = NULL,
+  log_errors = TRUE,
+  log_warnings = TRUE
+)
 }
 \arguments{
 \item{dsn}{set Data Source Name}

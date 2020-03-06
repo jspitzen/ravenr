@@ -6,6 +6,9 @@
 \usage{
 get_warning_exception()
 }
+\value{
+
+}
 \description{
 Get warning message from call stack (when warning itself is not available)
 }
